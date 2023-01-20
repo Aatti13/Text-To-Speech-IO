@@ -1,4 +1,26 @@
-
+'''
+Text-To-Speech.IO
+--------------------------------------------------------------------------
+Image Credits: Parvat Computer Technology
+Font.Credits: https://cooltext.com/
+YouTube: https://www.youtube.com/@parvatcomputertechnology
+--------------------------------------------------------------------------
+I have only taken logo, speak button and search bar from the former.
+--------------------------------------------------------------------------
+Extra hexcodes got from Images...
+Link for hexcode finder: https://html-color-codes.info/colors-from-image/#
+--------------------------------------------------------------------------
+Video Link: https://www.youtube.com/watch?v=fEL8ihL-GXg 
+Images taken from Video Description...
+--------------------------------------------------------------------------
+No Code has been taken from the video...
+--------------------------------------------------------------------------
+The Following Code does not contain any intentional errors...
+--------------------------------------------------------------------------
+No Lines of code have been deleted or omitted and the code is complete...
+--------------------------------------------------------------------------
+Done by: @aatti 
+'''
 
 # Imports
 from tkinter import *
@@ -11,25 +33,27 @@ import os
 from random import choice
 
 
+# Defining the class
 class AppWindow:
     def __init__(self, window, master=None):
         self.root = window
-        self.bg = "#12023a"
+        self.bg = "#12023a" # main background colour (better to have single controller)
         self.gray_scale = "black"
-        self.font = "Leelawadee UI Semilight"
-        self.engine = pyttsx3.init()
+        self.font = "Leelawadee UI Semilight"  # Default font
+        self.engine = pyttsx3.init()    # Init. pyttsx3 engine
         # --------------------------------------------------------------------------------------------------------------
         self.root.config(bg=self.bg)
         # --------------------------------------------------------------------------------------------------------------
         # Functions
 
-
+        # defining speaking Function
         def speak_now():
             text = self.text_box.get(1.0, END)
             gender = self.gender_drop_box.get()
             speed = self.speed_drop_box.get()
             voices = self.engine.getProperty('voices')
 
+            # Defining function to set voice
             def set_voice():
                 if gender == 'Man':
                     self.engine.setProperty('voice', voices[0].id)
@@ -40,11 +64,13 @@ class AppWindow:
                     self.engine.setProperty('voice', voices[1].id)
                     self.engine.say(text)
                     self.engine.runAndWait()
+                # Random selection of Voice
                 else:
                     self.engine.setProperty('voice', choice(voices).id)
                     self.engine.say(text)
                     self.engine.runAndWait()
-
+            
+            # Setting speed of speech
             if text:
                 if speed == "2x":
                     self.engine.setProperty('rate', 300)
@@ -58,7 +84,8 @@ class AppWindow:
                     self.engine.setProperty('rate', 37)
             set_voice()
 
-
+         
+        # Defining the download function
         def download():
             text = self.text_box.get(1.0, END)
             gender = self.gender_drop_box.get()
@@ -68,8 +95,8 @@ class AppWindow:
             def set_voice():
                 if gender == 'Man':
                     self.engine.setProperty('voice', voices[0].id)
-                    path = filedialog.askdirectory()
-                    os.chdir(path)
+                    path = filedialog.askdirectory()    # search File manager
+                    os.chdir(path)  # Choosw path for saving
                     self.engine.save_to_file(text, 'text.mp3')
                     self.engine.runAndWait()
                 elif gender == 'Woman':
@@ -99,27 +126,36 @@ class AppWindow:
             set_voice()
         # --------------------------------------------------------------------------------------------------------------
         'Window Images'
+        
+        # Additional text for motto
         self.search_image = Image.open("search.png")
         self.search_image = ImageTk.PhotoImage(self.search_image)
 
+        # Logo Text Image
         self.title_text_image = Image.open("logo text.png")
         self.title_text_image = ImageTk.PhotoImage(self.title_text_image)
 
+        # Speak button Image
         self.speak_icon_image = Image.open("Copy of speak.png")
         self.speak_icon_image = ImageTk.PhotoImage(self.speak_icon_image)
 
+        # Logo Image
         self.logo_image = Image.open("speaker logo.png")
         self.logo_image = ImageTk.PhotoImage(self.logo_image)
-
+        
+        # Download Button Image
         self.download_image = Image.open("download image.png")
         self.download_image = self.download_image.resize((60, 60), Image.Resampling.LANCZOS)
         self.download_image = ImageTk.PhotoImage(self.download_image)
 
         # --------------------------------------------------------------------------------------------------------------
         # Buttons
+        
+        # Speak Button
         self.speak_button = Button(self.root, image=self.speak_icon_image, bg=self.bg, bd=0, command=speak_now)
         self.speak_button.place(x=750, y=540)
-
+        
+        # Download Button
         self.download_button = Button(self.root, image=self.download_image, bg=self.bg, bd=0, command=download)
         self.download_button.place(x=905, y=538)
 
@@ -127,13 +163,18 @@ class AppWindow:
         'Labels'
         # Logo Label
        
+        # Logo Text label
         Label(self.root, image=self.title_text_image,
               fg="#cf5d17", bg=self.bg).place(x=100, y=21)
+        # Motto Label
         self.text_logo_label = Label(self.root, image=self.search_image, bd=0, bg=self.bg)
         self.text_logo_label.place(x=10, y=630)
+        
+        # Motto label text
         Label(self.root, text="Text to speech...Simple & Easy", bg="#110D19",
               fg="white", font=(self.font, 15)).place(x=50, y=650)
 
+        # Logo Image Label
         Label(self.root, image=self.logo_image, bg=self.bg, bd=0).place(x=10, y=10)
 
         # TextBox Labels
@@ -179,5 +220,6 @@ if __name__ == "__main__":
     window.title("Text-To-Speech.io")
     window.iconbitmap('icon.ico')
     window.resizable(False, False)
+    
     x = AppWindow(window)
     window.mainloop()
