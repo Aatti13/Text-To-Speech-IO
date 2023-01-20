@@ -1,3 +1,6 @@
+
+
+# Imports
 from tkinter import *
 
 from PIL import Image, ImageTk
@@ -123,7 +126,7 @@ class AppWindow:
         # --------------------------------------------------------------------------------------------------------------
         'Labels'
         # Logo Label
-        # Label(self.root, bg="white", width=180, height=7).place(x=0, y=0)
+       
         Label(self.root, image=self.title_text_image,
               fg="#cf5d17", bg=self.bg).place(x=100, y=21)
         self.text_logo_label = Label(self.root, image=self.search_image, bd=0, bg=self.bg)
@@ -156,13 +159,14 @@ class AppWindow:
         # --------------------------------------------------------------------------------------------------------------
         'Dropbox'
 
-
+        # Gender Dropdown
         self.gender_drop_box = Combobox(self.root, values=["Man", "Woman", "Surprise Me"],
                                         font=(self.font, 16), state='r',
                                         width=10, background=self.bg)
         self.gender_drop_box.place(x=900, y=250)
         self.gender_drop_box.set("Gender")
 
+        # Speed Dropbox
         self.speed_drop_box = Combobox(self.root, values=["0.25x", "0.5x", "1x", "1.5x", "2x"],
                                        font=(self.font, 16), state='r', width=10, background=self.bg)
         self.speed_drop_box.place(x=900, y=350)
